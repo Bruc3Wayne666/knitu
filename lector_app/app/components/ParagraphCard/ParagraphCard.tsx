@@ -7,10 +7,11 @@ interface ParagraphCardProps {
         title: string
     },
     lessonPath: string,
-    paragraphPath: string
+    paragraphPath: string,
+    index: number
 }
 
-const ParagraphCard: FC<ParagraphCardProps> = ({paragraph, lessonPath, paragraphPath}) => {
+const ParagraphCard: FC<ParagraphCardProps> = ({paragraph, lessonPath, paragraphPath, index}) => {
     const navigation = useNavigation()
 
     return (
@@ -18,23 +19,39 @@ const ParagraphCard: FC<ParagraphCardProps> = ({paragraph, lessonPath, paragraph
             onPress={() => navigation.navigate('paragraph', {lessonPath, paragraphPath})}
             style={styles.card}
         >
-            <Text style={styles.title}>{paragraph.title}</Text>
+            <Text style={styles.title}>
+                <Text style={styles.number}>{index}. </Text>
+                {paragraph.title}
+            </Text>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#888',
+        paddingLeft: 12,
+        backgroundColor: '#B9F3FC',
         marginBottom: 12,
         minHeight: 90,
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        borderRadius: 16
+        borderRadius: 16,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6
     },
     title: {
-        fontSize: 18,
-        color: 'black'
+        fontSize: 16,
+        color: '#555'
+    },
+    number: {
+        fontSize: 22,
+        fontWeight: '900'
     }
 })
 
