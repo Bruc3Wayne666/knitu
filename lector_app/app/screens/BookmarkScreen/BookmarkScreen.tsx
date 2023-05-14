@@ -1,37 +1,25 @@
 import React, {FC, useContext} from 'react';
-import {
-    Button,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    ToastAndroid,
-    TouchableOpacity,
-    View
-} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
+import {lessons} from "../../assets";
 import {ThemeContext} from "../../providers/ThemeProvider";
 
-const ProfileScreen: FC<any> = () => {
-    const {theme, toggleTheme} = useContext(ThemeContext)
+
+const BookmarkScreen: FC<any> = ({route}) => {
+    const {bookmark} = route.params
+    const [lesson, paragraph, example] = bookmark.split('-')
+    const {theme} = useContext(ThemeContext)
 
     return (
-        <SafeAreaView style={stylesLight[theme].screen}>
-            <View style={stylesLight[theme].headerBox}>
-                <Text style={stylesLight[theme].header}>Профиль</Text>
-            </View>
-            <View>
-                <Button
-                    onPress={toggleTheme}
-                    title={theme === 'light' ? 'dark' : 'light'}
-                />
-            </View>
-            <Text style={stylesLight[theme].header}>Тут потом доделаю. лень</Text>
-        </SafeAreaView>
+        <View style={styles[theme].screen}>
+            <Image
+                style={styles[theme].image}
+                source={lessons[lesson].paragraphs[paragraph].images[example]}
+            />
+        </View>
     );
 };
 
-const stylesLight = {
+const styles = {
     light: StyleSheet.create({
         screen: {
             backgroundColor: '#93C6E7',
@@ -43,7 +31,7 @@ const stylesLight = {
             borderWidth: 2,
             borderColor: '#222',
             borderRadius: 12,
-            marginBottom: 20
+            marginBottom: 20,
         },
         header: {
             fontSize: 22,
@@ -66,9 +54,10 @@ const stylesLight = {
             width: '100%',
             resizeMode: 'contain',
             borderWidth: 2,
-            borderColor: '#222',
+            borderColor: '#999',
             borderRadius: 12,
-            marginBottom: 20
+            marginBottom: 20,
+            // tintColor: '#222'
         },
         header: {
             fontSize: 22,
@@ -84,4 +73,4 @@ const stylesLight = {
     })
 }
 
-export default ProfileScreen;
+export default BookmarkScreen;

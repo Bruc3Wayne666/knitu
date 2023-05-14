@@ -1,88 +1,93 @@
-import React, {FC, useContext} from 'react';
-import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import React, {FC} from 'react';
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {ThemeContext} from "../../providers/ThemeProvider";
+import {Theme} from "../../providers/ThemeProvider";
 
 interface LessonCardProps {
     lesson: {
         title: string
     },
     lessonPath: string,
-    index: number
+    index: number,
+    theme: Theme
 }
 
-const LessonCard: FC<LessonCardProps> = ({lesson, lessonPath, index}) => {
+const LessonCard: FC<LessonCardProps> = ({lesson, lessonPath, index, theme}) => {
     const navigation = useNavigation()
-    const {theme} = useContext(ThemeContext)
 
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate('paragraphs', {lesson, lessonPath})}
-            style={theme === 'light' ? stylesLight.card : stylesDark.card}
+            style={styles[theme].card}
         >
-            <Text style={theme === 'light' ? stylesLight.title : stylesDark.title}>
-                <Text style={stylesLight.number}>{index + 1}. </Text>
+            <Text style={styles[theme].title}>
+                <Text style={styles.light.number}>{index + 1}. </Text>
                 {lesson.title}
             </Text>
         </TouchableOpacity>
     );
 };
 
-const stylesLight = StyleSheet.create({
-    card: {
-        paddingLeft: 12,
-        backgroundColor: '#B9F3FC',
-        marginBottom: 12,
-        minHeight: 90,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        borderRadius: 16,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
+const styles = {
+    light: StyleSheet.create({
+        card: {
+            paddingLeft: 12,
+            backgroundColor: '#B9F3FC',
+            marginBottom: 12,
+            minHeight: 90,
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            borderRadius: 16,
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 3,
+            },
+            shadowOpacity: 0.27,
+            shadowRadius: 4.65,
+            elevation: 6,
+            width: '96%',
+            marginLeft: 'auto',
+            marginRight: 'auto'
         },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6
-    },
-    title: {
-        fontSize: 16,
-        color: '#555'
-    },
-    number: {
-        fontSize: 22,
-        fontWeight: '900'
-    }
-})
-
-
-const stylesDark = StyleSheet.create({
-    card: {
-        paddingLeft: 12,
-        backgroundColor: '#444',
-        marginBottom: 12,
-        minHeight: 90,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        borderRadius: 16,
-        shadowOffset: {
-            width: 0,
-            height: 3,
+        title: {
+            fontSize: 16,
+            color: '#555'
         },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6
-    },
-    title: {
-        fontSize: 16,
-        color: 'white'
-    },
-    number: {
-        fontSize: 22,
-        fontWeight: '900'
-    }
-})
+        number: {
+            fontSize: 22,
+            fontWeight: '900'
+        }
+    }),
+    dark: StyleSheet.create({
+        card: {
+            paddingLeft: 12,
+            backgroundColor: '#444',
+            marginBottom: 12,
+            minHeight: 90,
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            borderRadius: 16,
+            shadowOffset: {
+                width: 0,
+                height: 3,
+            },
+            shadowOpacity: 0.27,
+            shadowRadius: 4.65,
+            elevation: 6,
+            width: '96%',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+        },
+        title: {
+            fontSize: 16,
+            color: 'white'
+        },
+        number: {
+            fontSize: 22,
+            fontWeight: '900'
+        }
+    })
+}
 
 export default LessonCard;

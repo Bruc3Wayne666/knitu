@@ -1,9 +1,8 @@
 import React, {FC, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {loadOptions} from "@babel/core";
 
-type Theme = "light" | "dark";
-type ThemeContext = { theme: Theme; toggleTheme: () => void };
+export type Theme = "light" | "dark";
+type ThemeContext = { theme: Theme; toggleTheme: () => void; isLoading: boolean};
 
 export const ThemeContext = React.createContext<ThemeContext>(
     {} as ThemeContext
@@ -12,12 +11,19 @@ export const ThemeContext = React.createContext<ThemeContext>(
 
 export const ThemeProvider: FC<any> = ({ children }) => {
     const [theme, setTheme] = useState<Theme>('light');
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-
+        setIsLoading(true)
         AsyncStorage.getItem('theme')
-            // @ts-ignore
-            .then(res => setTheme(res))
+            .then(res => {
+                if (res === null) {
+                    setTheme('light')
+                    return setIsLoading(false)
+                }
+                setTheme(res as Theme)
+                return setIsLoading(false)
+            })
     }, [])
 
     const toggleTheme = () => {
@@ -26,7 +32,7 @@ export const ThemeProvider: FC<any> = ({ children }) => {
     };
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{ theme, toggleTheme, isLoading }}>
             {children}
         </ThemeContext.Provider>
     );
