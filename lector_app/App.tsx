@@ -7,11 +7,11 @@ import ParagraphsScreen from "./app/screens/Paragraphs/ParagraphsScreen";
 import ParagraphScreen from "./app/screens/ParagraphScreen/ParagraphScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Bookmarks from "./app/screens/BookmarksScreen/BookmarksScreen";
-import {ThemeContext, ThemeProvider} from "./app/providers/ThemeProvider";
+import {ThemeProvider} from "./app/providers/ThemeProvider";
 import ProfileScreen from "./app/screens/ProfileScreen/ProfileScreen";
 import BookmarkScreen from "./app/screens/BookmarkScreen/BookmarkScreen";
 import {BookmarkProvider} from "./app/providers/BookmarksProvider";
-import {SafeAreaView, Text, View} from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 
 
 const Stack = createNativeStackNavigator()
@@ -31,13 +31,39 @@ const App = () => {
                                 headerShown: false,
                                 tabBarStyle: {
                                     backgroundColor: 'black',
+                                    // backgroundColor: 'gray',
                                     borderTopWidth: 0
                                 }
                             }}
                         >
-                            <Tab.Screen name={'home'} component={Home}/>
-                            <Tab.Screen name={'bookmarks'} component={Bookmarks}/>
-                            <Tab.Screen name={'profile'} component={ProfileScreen}/>
+                            <Tab.Screen
+                                // options={{
+                                //     tabBarIcon: (tabInfo) => {
+                                //         return (
+                                //             <Icon name={'home'} size={20}/>
+                                //         )
+                                //     }
+                                // }}
+                                options={{
+                                    title: 'Главная'
+                                }}
+                                name={'home'}
+                                component={Home}
+                            />
+                            <Tab.Screen
+                                options={{
+                                    title: 'Заметки'
+                                }}
+                                name={'bookmarks'}
+                                component={Bookmarks}
+                            />
+                            <Tab.Screen
+                                options={{
+                                    title: 'Профиль'
+                                }}
+                                name={'profile'}
+                                component={ProfileScreen}
+                            />
                         </Tab.Navigator>
                     </NavigationContainer>
                 {/*</SafeAreaView>*/}

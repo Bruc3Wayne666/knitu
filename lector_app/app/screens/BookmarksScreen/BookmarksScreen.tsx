@@ -19,8 +19,8 @@ const Bookmarks = () => {
             </View>
             {
                 bookmarks.length === 0 ?
-                    <View>
-                        <Text style={styles[theme].header}>Нет заметок</Text>
+                    <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+                        <Text style={{fontSize: 22, color: 'gray'}}>Нет заметок</Text>
                     </View> :
                     <ScrollView>
                         {

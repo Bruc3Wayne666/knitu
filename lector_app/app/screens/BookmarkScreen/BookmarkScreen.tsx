@@ -11,6 +11,7 @@ const BookmarkScreen: FC<any> = ({route}) => {
 
     return (
         <View style={styles[theme].screen}>
+            <Text style={{fontSize: 22, color: 'white', marginBottom: 12, fontWeight: 'bold'}}>{lessons[lesson].paragraphs[paragraph].title}</Text>
             <Image
                 style={styles[theme].image}
                 source={lessons[lesson].paragraphs[paragraph].images[example]}
@@ -23,7 +24,8 @@ const styles = {
     light: StyleSheet.create({
         screen: {
             backgroundColor: '#93C6E7',
-            flex: 1
+            flex: 1,
+            padding: 12
         },
         image: {
             width: '100%',
@@ -48,7 +50,8 @@ const styles = {
     dark: StyleSheet.create({
         screen: {
             backgroundColor: '#222',
-            flex: 1
+            flex: 1,
+            padding: 12
         },
         image: {
             width: '100%',

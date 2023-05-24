@@ -20,13 +20,15 @@ const ProfileScreen: FC<any> = () => {
             <View style={stylesLight[theme].headerBox}>
                 <Text style={stylesLight[theme].header}>Профиль</Text>
             </View>
-            <View>
-                <Button
+            <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                <Text style={stylesLight[theme].btnText}>Тема:</Text>
+                <TouchableOpacity
                     onPress={toggleTheme}
-                    title={theme === 'light' ? 'dark' : 'light'}
-                />
+                    style={stylesLight[theme].button}
+                >
+                    <Text style={stylesLight[theme].btnText}>{theme === 'light' ? 'Тёмная' : 'Светлая'}</Text>
+                </TouchableOpacity>
             </View>
-            <Text style={stylesLight[theme].header}>Тут потом доделаю. лень</Text>
         </SafeAreaView>
     );
 };
@@ -46,8 +48,13 @@ const stylesLight = {
             marginBottom: 20
         },
         header: {
-            fontSize: 22,
+            fontSize: 42,
             fontWeight: '900',
+            color: 'white'
+        },
+        btnText: {
+            fontSize: 22,
+            fontWeight: '600',
             color: 'white'
         },
         headerBox: {
@@ -55,6 +62,13 @@ const stylesLight = {
             marginTop: 20,
             paddingLeft: 12,
             justifyContent: 'center'
+        },
+        button: {
+            width: 200,
+            backgroundColor: '#222',
+            borderRadius: 12,
+            justifyContent: 'center',
+            alignItems: 'center'
         }
     }),
     dark: StyleSheet.create({
@@ -71,8 +85,13 @@ const stylesLight = {
             marginBottom: 20
         },
         header: {
-            fontSize: 22,
+            fontSize: 42,
             fontWeight: '900',
+            color: 'white'
+        },
+        btnText: {
+            fontSize: 22,
+            fontWeight: '600',
             color: 'white'
         },
         headerBox: {
@@ -80,6 +99,13 @@ const stylesLight = {
             marginTop: 20,
             paddingLeft: 12,
             justifyContent: 'center'
+        },
+        button: {
+            width: 200,
+            backgroundColor: '#333',
+            borderRadius: 12,
+            justifyContent: 'center',
+            alignItems: 'center'
         }
     })
 }
